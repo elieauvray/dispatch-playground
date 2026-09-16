@@ -1,0 +1,30 @@
+<section class="card">
+  <h1>Submitted messages</h1>
+
+  <% if (sent) { %>
+    <p class="alert alert--success">Thanks! Your message has been saved.</p>
+  <% } %>
+
+  <% if (messages.length === 0) { %>
+    <p class="empty">No messages yet. <a href="/">Send the first one</a>.</p>
+  <% } else { %>
+    <div class="table-wrapper">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Email</th>
+            <th scope="col">Message</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% messages.forEach(function (row) { %>
+            <tr>
+              <td data-label="Email"><%= row.email %></td>
+              <td data-label="Message"><%= row.message %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  <% } %>
+</section>

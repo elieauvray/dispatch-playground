@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title><%= title %> &middot; Simple CRM</title>
+    <link rel="stylesheet" href="/static/css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <span class="brand">Simple CRM</span>
+        <nav class="nav">
+          <a href="/">New message</a>
+          <a href="/messages">Messages</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <%- include(view) %>
+    </main>
+
+    <footer class="site-footer">
+      <p>Simple CRM</p>
+    </footer>
+  </body>
+</html>

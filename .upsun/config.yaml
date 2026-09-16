@@ -1,0 +1,43 @@
+applications:
+  app:
+    type: "nodejs:20"
+    source:
+      root: "/"
+
+    relationships:
+      database: "db:postgresql"
+
+    dependencies:
+      nodejs:
+        npm: "*"
+
+    hooks:
+      build: |
+        set -e
+        npm ci
+      deploy: |
+        set -e
+        npm run migrate
+
+    web:
+      commands:
+        start: "npm start"
+      locations:
+        "/":
+          passthru: true
+        "/static":
+          root: "public"
+          expires: 1h
+          allow: true
+
+services:
+  db:
+    type: "postgresql:16"
+
+routes:
+  "https://{default}/":
+    type: upstream
+    upstream: "app:http"
+  "https://www.{default}/":
+    type: redirect
+    to: "https://{default}/"
