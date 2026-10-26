@@ -7,6 +7,8 @@ A small CRM app with two pages:
 
 Built with Node.js, Express and EJS, storing messages in PostgreSQL, and ready to deploy on [Upsun](https://upsun.com).
 
+The UI uses a dark, high-contrast theme inspired by Upsun: Space Grotesk type (loaded from Google Fonts, with Inter/system fallbacks), indigo pill buttons and outlined secondary buttons. All styling lives in `public/css/styles.css`.
+
 ## Local development
 
 Requirements: Node.js 20+ and a PostgreSQL database.
