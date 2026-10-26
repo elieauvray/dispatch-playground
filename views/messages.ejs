@@ -16,6 +16,7 @@
           <tr>
             <th scope="col">Email</th>
             <th scope="col">Message</th>
+            <th scope="col">Attachment</th>
           </tr>
         </thead>
         <tbody>
@@ -23,6 +24,21 @@
             <tr>
               <td data-label="Email"><%= row.email %></td>
               <td data-label="Message"><%= row.message %></td>
+              <td data-label="Attachment">
+                <% if (row.attachment_name) { %>
+                  <%
+                    var size = Number(row.attachment_size) || 0;
+                    var sizeLabel = size >= 1024 * 1024
+                      ? (size / (1024 * 1024)).toFixed(1) + ' MB'
+                      : size >= 1024
+                        ? Math.ceil(size / 1024) + ' KB'
+                        : size + ' B';
+                  %>
+                  <a href="/messages/<%= encodeURIComponent(row.id) %>/attachment"><%= row.attachment_name %></a>
+                  <span class="muted">(<%= sizeLabel %>)</span>
+                <% } else { %>
+                  &mdash;
+                <% } %></td>
             </tr>
           <% }); %>
         </tbody>
