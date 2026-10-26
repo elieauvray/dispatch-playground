@@ -1,6 +1,6 @@
 applications:
   app:
-    type: "nodejs:20"
+    type: "nodejs:26"
     source:
       root: "/"
 

@@ -11,7 +11,7 @@ The UI uses a dark, high-contrast theme inspired by Upsun: Space Grotesk type (l
 
 ## Local development
 
-Requirements: Node.js 20+ and a PostgreSQL database.
+Requirements: Node.js 26.12.1+ and a PostgreSQL database.
 
 ```bash
 npm install
