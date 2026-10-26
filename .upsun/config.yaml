@@ -7,10 +7,6 @@ applications:
     relationships:
       database: "db:postgresql"
 
-    dependencies:
-      nodejs:
-        npm: "*"
-
     hooks:
       build: |
         set -e
