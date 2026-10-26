@@ -11,7 +11,9 @@ The UI uses a dark, high-contrast theme inspired by Upsun: Space Grotesk type (l
 
 ## Local development
 
-Requirements: Node.js 26.12.1+ and a PostgreSQL database.
+Requirements: Node.js 26 (`.nvmrc` pins 26.12.1 for local development) and a
+PostgreSQL database. On Upsun, the `nodejs:26` image provides the latest 26.x
+patch release.
 
 ```bash
 npm install
