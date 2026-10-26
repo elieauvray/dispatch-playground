@@ -8,7 +8,7 @@
     <p class="alert alert--error"><%= errors.form %></p>
   <% } %>
 
-  <form method="post" action="/" novalidate>
+  <form method="post" action="/" enctype="multipart/form-data" novalidate>
     <div class="field">
       <label for="email">Your email</label>
       <input
@@ -37,6 +37,20 @@
       <% if (errors.message) { %>
         <p class="field__error"><%= errors.message %></p>
       <% } %>
+    </div>
+
+    <div class="field">
+      <label for="attachment">Attachment</label>
+      <input
+        type="file"
+        id="attachment"
+        name="attachment"
+        data-max-bytes="10485760"
+        aria-describedby="attachment-hint"
+        <%- errors.attachment ? 'aria-invalid="true"' : '' %>
+      />
+      <p class="field__hint" id="attachment-hint">Optional. Max 10 MB.</p>
+      <p class="field__error" id="attachment-error" role="alert"<%- errors.attachment ? '' : ' hidden' %>><%= errors.attachment || '' %></p>
     </div>
 
     <div class="field">

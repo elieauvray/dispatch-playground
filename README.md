@@ -2,8 +2,8 @@
 
 A small CRM app with two pages:
 
-- `/` — a form to submit your email and your message, protected by a captcha, with a Send button.
-- `/messages` — the list of submitted messages in a table with two columns (email and message).
+- `/` — a form to submit your email, your message and an optional attachment (max 10 MB), protected by a captcha, with a Send button.
+- `/messages` — the list of submitted messages in a table with three columns (email, message and attachment, with a download link when a file was attached).
 
 Built with Node.js, Express and EJS, storing messages in PostgreSQL, and ready to deploy on [Upsun](https://upsun.com).
 
@@ -20,7 +20,7 @@ npm install
 cp .env.example .env            # then adjust DATABASE_URL / CAPTCHA_SECRET
 export DATABASE_URL=postgres://postgres:postgres@localhost:5432/crm
 export CAPTCHA_SECRET=some-long-random-string
-npm run migrate                 # creates the messages table (idempotent)
+npm run migrate                 # creates/updates the messages table (idempotent)
 npm start                       # http://localhost:3000
 ```
 
@@ -44,6 +44,19 @@ The captcha is a self-contained arithmetic challenge ("What is 7 + 4?"). The exp
 answer is not stored server-side: the form carries a signed token
 (`HMAC-SHA256(CAPTCHA_SECRET, answer.expiry)`) that is verified on submission and
 expires after 10 minutes. A hidden honeypot field adds a second, cheap spam defence.
+
+## Attachments
+
+The contact form has an optional file field. The limit is **10 MB** (10 × 1024 × 1024
+bytes): it is enforced on the server (multer, plus a second check in
+`src/validate.js`) and hinted in the browser by `public/js/attachment.js`. Larger
+files are rejected with HTTP 400 and an error on the form.
+
+Files are stored in PostgreSQL (`attachment_*` columns on `messages`, added by
+`migrations/002_attachment.sql`), because the Upsun application filesystem is
+read-only at runtime. Run `npm run migrate` to apply it. Downloads are served from
+`/messages/:id/attachment` as `application/octet-stream` with a forced-download
+header. Note that `/messages` and the downloads are public, like the rest of the app.
 
 ## Deploying to Upsun
 
